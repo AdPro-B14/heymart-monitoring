@@ -33,35 +33,36 @@ jobs:
         run: |
           gcloud auth configure-docker
 
-      - name: Build
+      - name: Build prometheus
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-prometheus prometheus
 
-      - name: Push
+      - name: Push prometheus
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-prometheus
 
       - name: Deploy monitoring service
         id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: 'heymart-monitoring'
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-prometheus
           region: asia-southeast2
           timeout: 15m
-          # env_vars: |
-          #   PG_HOST=${{ secrets.PG_HOST }}
-          #   PG_HOST_DEV=${{ secrets.PG_HOST_DEV }}
-          #   PG_HOST_DEV=${{ secrets.PG_HOST_STAGING }}
-          #   PG_USERNAME=${{ secrets.PG_USERNAME }}
-          #   PG_PASSWORD=${{ secrets.PG_PASSWORD }}
-          #   JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-          #   JWT_EXPIRE_DURATION=${{ secrets.JWT_EXPIRE_DURATION }}
-          #   GATEWAY_TOKEN=${{ secrets.GATEWAY_TOKEN }}
-          #   GATEWAY_ORDER_HOST=${{ secrets.GATEWAY_ORDER_HOST }}
-          #   GATEWAY_STORE_HOST=${{ secrets.GATEWAY_STORE_HOST }}
-          #   GATEWAY_ORDER_HOST_DEV=${{ secrets.GATEWAY_ORDER_HOST_DEV }}
-          #   GATEWAY_STORE_HOST_DEV=${{ secrets.GATEWAY_STORE_HOST_DEV }}
-          #   GATEWAY_ORDER_HOST_STAGING=${{ secrets.GATEWAY_ORDER_HOST_STAGING }}
-          #   GATEWAY_STORE_HOST_STAGING=${{ secrets.GATEWAY_STORE_HOST_STAGING }}
-          #   ENVIRONMENT_PROFILE=${{ needs.set-environment.outputs.environment }}
+      
+      - name: Build grafana
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-grafana grafana
+
+      - name: Push grafana
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-grafana
+
+      - name: Deploy monitoring service
+        id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: 'heymart-monitoring'
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-grafana
+          region: asia-southeast2
+          timeout: 15m
