@@ -5,6 +5,7 @@ COPY provisioning/datasources.yml /etc/grafana/provisioning/datasources.yml
 
 EXPOSE 3000
 
+ENV GF_SERVER_HTTP_PORT=3000
 ENV PORT 3000
 
 CMD ["grafana-server", "--allow-embedding"]
