@@ -41,11 +41,11 @@ jobs:
         run: |
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-prometheus
 
-      - name: Deploy monitoring service
-        id: 'deploy'
+      - name: Deploy prometheus service
+        id: 'deploy-prometheus'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          service: 'heymart-monitoring'
+          service: 'heymart-monitoring-prometheus'
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-prometheus
           region: asia-southeast2
           timeout: 15m
@@ -58,11 +58,11 @@ jobs:
         run: |
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-grafana
 
-      - name: Deploy monitoring service
-        id: 'deploy'
+      - name: Deploy grafana service
+        id: 'deploy-grafana'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
-          service: 'heymart-monitoring'
+          service: 'heymart-monitoring-grafana'
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring-grafana
           region: asia-southeast2
           timeout: 15m
