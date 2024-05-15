@@ -41,7 +41,7 @@ jobs:
         run: |
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-monitoring
 
-      - name: Deploy ${{ needs.set-environment.outputs.environment }}
+      - name: Deploy monitoring service
         id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
