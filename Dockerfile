@@ -14,7 +14,7 @@ ENTRYPOINT [ "prometheus", \
 
 FROM grafana/grafana:9.5.2
 
-COPY grafana/provisioning/datasources.yaml /etc/grafana/provisioning/datasources.yaml
+COPY grafana/provisioning/datasources.yml /etc/grafana/provisioning/datasources.yml
 # COPY provisioning/dashboards.yaml /etc/grafana/provisioning/dashboards.yaml
 
 EXPOSE 3000
