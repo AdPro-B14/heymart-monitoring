@@ -2,8 +2,6 @@ FROM prom/prometheus:v2.44.0 AS prometheus_build
 
 COPY prometheus.yml /etc/prometheus/prometheus.yml
 
-EXPOSE 8080
-
 CMD [ "prometheus", \
             "--config.file=/etc/prometheus/prometheus.yml", \
             "--storage.tsdb.path=/prometheus", \
