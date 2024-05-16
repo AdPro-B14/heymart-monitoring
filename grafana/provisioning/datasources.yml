@@ -3,5 +3,5 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: https://heymart-monitoring-prometheus-qwmmsp4gka-et.a.run.app
+    url: heymart-monitoring-prometheus-qwmmsp4gka-et.a.run.app
     isDefault: true
