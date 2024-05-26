@@ -6,3 +6,17 @@ scrape_configs:
       - targets: ['heymart-auth-production-qwmmsp4gka-et.a.run.app']
         labels:
           application: 'heymart-auth'
+  - job_name: 'Heymart Store Metrics'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 3s
+    static_configs:
+      - targets: ['heymart-store-production-qwmmsp4gka-et.a.run.app']
+        labels:
+          application: 'heymart-store'
+  - job_name: 'Heymart Order Metrics'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 3s
+    static_configs:
+      - targets: ['heymart-order-production-qwmmsp4gka-et.a.run.app']
+        labels:
+          application: 'heymart-order'
